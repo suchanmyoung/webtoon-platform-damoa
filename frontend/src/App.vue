@@ -1,16 +1,50 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <button @click="fetchData">get Data!</button>
+  </div>
+
+  <form id="myForm" @submit.prevent="sendPost">
+    <input type="text" name="title" v-model="title">
+    <button>Send</button>
+  </form>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import axios from "axios";
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+  },
+  data(){
+    return{
+      title : "hello",
+    }
+  },
+  methods: {
+    fetchData: function(){
+      axios.get('/hello')
+      .then(function (response){
+        console.log(response);
+      })
+      .catch(function (error){
+        alert(error);
+      });
+    },
+
+    sendPost: function() {
+    axios.post('/binding', {
+      title: this.title
+    })
+    .then(function(response){
+      console.log(response.data);
+  }).catch(function (error){
+    console.log(error);
+  })
   }
+},
 }
 </script>
 
