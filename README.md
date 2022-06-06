@@ -6,6 +6,7 @@
 * Spring Batch
 * JPA
 * MySQL
+* JSoup
 
 ###### FrontEnd
 * Vue.js
