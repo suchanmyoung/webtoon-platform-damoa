@@ -4,6 +4,15 @@
     <button @click="fetchData">get Data!</button>
   </div>
 
+  <div class="webtoons" v-for="(webtoon, i) in naverWebtoons" :key="i">
+    <text>{{webtoon.title}}</text>
+    <img :src="webtoon.thumbnail">
+  </div>
+
+  <div>
+    <button @click="fetchNaver">get Naver Webtoon !</button>
+  </div>
+
   <form id="myForm" @submit.prevent="sendPost">
     <input type="text" name="title" v-model="title">
     <button>Send</button>
@@ -21,6 +30,7 @@ export default {
   data(){
     return{
       title : "hello",
+      naverWebtoons : [],
     }
   },
   methods: {
@@ -39,11 +49,18 @@ export default {
       title: this.title
     })
     .then(function(response){
-      console.log(response.data);
+      console.log(response)
   }).catch(function (error){
     console.log(error);
   })
-  }
+  },
+
+    fetchNaver: function (){
+      axios.get('/naver')
+      .then(res => {
+        this.naverWebtoons = res.data;
+      })
+    }
 },
 }
 </script>
