@@ -2,9 +2,11 @@ package com.damoawebtoon.util;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+@Component
 public class UrlConnector {
 
     public Document getHtml(String url) {

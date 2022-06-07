@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class WebtoonParserService {
 
-    UrlConnector urlConnector;
+정    private final UrlConnector urlConnector;
 
     public List<Webtoon> parse(String url){
         List<Webtoon> webtoons = new ArrayList<>();
