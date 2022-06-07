@@ -1,7 +1,9 @@
 <template>
-  <div>
-    <button @click="fetchData">get Data!</button>
-  </div>
+  <nav class="navbar navbar-dark bg-dark">
+    <button @click="fetchNaver" type="button" class="btn btn-success">네이버웹툰</button>
+    <button type="button" class="btn btn-warning">카카오웹툰</button>
+    <button type="button" class="btn btn-danger">레진코믹스</button>
+  </nav>
 
   <div class="webtoons">
     <div class="webtoon" v-for="(webtoon, i) in naverWebtoons" :key="i">
@@ -29,9 +31,6 @@ export default {
       title : "hello",
       naverWebtoons : [],
     }
-  },
-  mounted() {
-    this.fetchNaver();
   },
   methods: {
     fetchData: function(){
