@@ -25,9 +25,8 @@ public class WebtoonParserService {
         Elements select = document.select(".thumb img");
 
         for (Element element : select) {
-                String title = element.attr("title");
-                String thumbnail = element.attr("src");
-                webtoons.add(new Webtoon(title, thumbnail));
+            Webtoon webtoon = new Webtoon(element.attr("title"), element.attr("src"));
+            webtoons.add(webtoon);
         }
 
         return webtoons;
