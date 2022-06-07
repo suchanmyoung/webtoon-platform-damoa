@@ -1,4 +1,4 @@
-package com.damoawebtoon;
+package com.damoawebtoon.dto;
 
 import lombok.Data;
 import lombok.ToString;

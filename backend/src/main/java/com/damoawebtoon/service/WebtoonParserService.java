@@ -1,6 +1,6 @@
 package com.damoawebtoon.service;
 
-import com.damoawebtoon.Webtoon;
+import com.damoawebtoon.dto.Webtoon;
 import com.damoawebtoon.util.UrlConnector;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
