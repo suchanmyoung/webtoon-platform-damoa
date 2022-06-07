@@ -1,16 +1,13 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
   <div>
     <button @click="fetchData">get Data!</button>
   </div>
 
-  <div class="webtoons" v-for="(webtoon, i) in naverWebtoons" :key="i">
-    <text>{{webtoon.title}}</text>
-    <img :src="webtoon.thumbnail">
-  </div>
-
-  <div>
-    <button @click="fetchNaver">get Naver Webtoon !</button>
+  <div class="webtoons">
+    <div class="webtoon" v-for="(webtoon, i) in naverWebtoons" :key="i">
+      <img :src="webtoon.thumbnail">
+      <text class="webtoon_title">{{webtoon.title}}</text>
+    </div>
   </div>
 
   <form id="myForm" @submit.prevent="sendPost">
@@ -32,6 +29,9 @@ export default {
       title : "hello",
       naverWebtoons : [],
     }
+  },
+  mounted() {
+    this.fetchNaver();
   },
   methods: {
     fetchData: function(){
@@ -66,12 +66,33 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.webtoons {
+  justify-content: space-between;
+  flex-wrap: wrap;
+  display: flex;
+  align-items: center;
 }
+
+.webtoon {
+  width: 150px;
+  height: 150px;
+  align-items: center;
+}
+
+.webtoon img{
+  width: 120px;
+  height:  120px;
+  object-fit: cover;
+}
+
+.webtoon text {
+  display: block;
+  text-align: center;
+  width: 120px;
+  height: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow : ellipsis;
+}
+
 </style>
