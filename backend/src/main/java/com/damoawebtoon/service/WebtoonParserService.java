@@ -1,15 +1,14 @@
 package com.damoawebtoon.service;
 
 import com.damoawebtoon.dto.Webtoon;
-import com.damoawebtoon.util.UrlConnector;
+import com.damoawebtoon.parse.KakaoWebtoon;
+import com.damoawebtoon.parse.NaverWebtoon;
+import com.damoawebtoon.parse.ParseFactory;
+import com.damoawebtoon.parse.ParseStrategy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -17,18 +16,13 @@ import java.util.List;
 @Service
 public class WebtoonParserService {
 
-정    private final UrlConnector urlConnector;
+    private final ParseFactory parseFactory;
 
+    /** 전략패턴으로 입력 url 에 따른 로직 실행  */
     public List<Webtoon> parse(String url){
-        List<Webtoon> webtoons = new ArrayList<>();
-        Document document = urlConnector.getHtml(url);
-        Elements select = document.select(".thumb img");
-
-        for (Element element : select) {
-            Webtoon webtoon = new Webtoon(element.attr("title"), element.attr("src"));
-            webtoons.add(webtoon);
-        }
-
+        ParseStrategy parseStrategy = parseFactory.getParseStrategy(url);
+        parseFactory.setParseStrategy(parseStrategy);
+        List<Webtoon> webtoons = parseFactory.parse(url);
         return webtoons;
     }
 }

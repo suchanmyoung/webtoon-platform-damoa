@@ -9,7 +9,7 @@ import java.io.IOException;
 @Component
 public class UrlConnector {
 
-    public Document getHtml(String url) {
+    public static Document getHtml(String url) {
         try {
             return Jsoup.connect(url).get();
         } catch (IOException e){
