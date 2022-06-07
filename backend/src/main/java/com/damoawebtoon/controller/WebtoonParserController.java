@@ -1,5 +1,7 @@
-package com.damoawebtoon;
+package com.damoawebtoon.controller;
 
+import com.damoawebtoon.Webtoon;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -13,10 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
+@RequiredArgsConstructor
 @RestController
-public class WebtoonParser {
+public class WebtoonParserController {
 
     String naverWebtoonURL = "https://comic.naver.com/webtoon/weekday";
+
     Document document;
 
     @RequestMapping("/naver")
@@ -27,7 +31,6 @@ public class WebtoonParser {
 
             document = Jsoup.connect(naverWebtoonURL).get();
             Elements select = document.select(".thumb img");
-            System.out.println(select);
             for (Element element : select) {
                 String title = element.attr("title");
                 String thumbnail = element.attr("src");
