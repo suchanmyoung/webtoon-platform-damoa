@@ -1,12 +1,14 @@
 package com.damoawebtoon.controller;
 
 import com.damoawebtoon.Webtoon;
+import com.damoawebtoon.service.WebtoonParserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,31 +21,21 @@ import java.util.List;
 @RestController
 public class WebtoonParserController {
 
-    String naverWebtoonURL = "https://comic.naver.com/webtoon/weekday";
+    private final WebtoonParserService webtoonParserService;
 
-    Document document;
+    String naverWebtoonURL = "https://comic.naver.com/webtoon/weekday";
+    String kakaoWebtoonURL = "https://webtoon.kakao.com/original-webtoon";
+
 
     @RequestMapping("/naver")
-    public List<Webtoon> naverWebtoonParser(){
+    public ResponseEntity<List<Webtoon>> naverWebtoonParse(){
+        List<Webtoon> webtoons = webtoonParserService.parse(naverWebtoonURL);
+        return ResponseEntity.ok(webtoons);
+    }
 
-        List<Webtoon> webtoons = new ArrayList<>();
-        try {
-
-            document = Jsoup.connect(naverWebtoonURL).get();
-            Elements select = document.select(".thumb img");
-            for (Element element : select) {
-                String title = element.attr("title");
-                String thumbnail = element.attr("src");
-
-                webtoons.add(new Webtoon(title, thumbnail));
-            }
-        } catch (IOException e){
-            log.error(e.getMessage());
-        }
-
-        for (Webtoon webtoon : webtoons) {
-            System.out.println(webtoon.toString());
-        }
-        return webtoons;
+    @RequestMapping("/kakao")
+    public ResponseEntity<List<Webtoon>> kakaoWebtoonParse(){
+        List<Webtoon> webtoons = webtoonParserService.parse(kakaoWebtoonURL);
+        return ResponseEntity.ok(webtoons);
     }
 }
