@@ -21,8 +21,7 @@ public class WebtoonParserService {
     /** 전략패턴으로 입력 url 에 따른 로직 실행  */
     public List<Webtoon> parse(String url){
         ParseStrategy parseStrategy = parseFactory.getParseStrategy(url);
-        parseFactory.setParseStrategy(parseStrategy);
-        List<Webtoon> webtoons = parseFactory.parse(url);
+        List<Webtoon> webtoons = parseStrategy.parse(url);
         return webtoons;
     }
 }

@@ -12,12 +12,18 @@ public class NaverWebtoon implements ParseStrategy{
 
     @Override
     public List<Webtoon> parse(String url) {
-        Document document = UrlConnector.getHtml(url);
-        Elements select = document.select(".thumb img");
+        Document naverDocument = UrlConnector.getHtml(url);
+        Elements select = naverDocument.select(".thumb img");
         for (Element element : select) {
             Webtoon webtoon = new Webtoon(element.attr("title"), element.attr("src"));
             webtoons.add(webtoon);
         }
         return webtoons;
+    }
+
+    @Override
+    public boolean isSupport(String url) {
+        if(url.contains("naver")) return true;
+        else return false;
     }
 }
