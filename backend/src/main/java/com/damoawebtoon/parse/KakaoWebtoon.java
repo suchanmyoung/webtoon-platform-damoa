@@ -16,7 +16,6 @@ public class KakaoWebtoon implements ParseStrategy{
         Elements select = kakaoDocument.select(".w-full bottom-0 left-0 absolute h-full");
         for (Element element : select) {
         }
-
         return null;
     }
 
